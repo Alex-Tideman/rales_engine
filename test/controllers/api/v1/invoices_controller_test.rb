@@ -52,16 +52,44 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     transaction = transactions.first
 
     assert_response :success
-    assert_equal 113629430, transaction[:id]
+    assert_equal "234092342093", transaction[:credit_card_number]
   end
 
   test "#invoice_items" do
 
-    get :transactions, format: :json, invoice_id: Invoice.first.id
+    get :invoice_items, format: :json, invoice_id: Invoice.first.id
     invoice_items = JSON.parse(response.body, symbolize_names: true)[:invoices]
     invoice_item = invoice_items.first
 
     assert_response :success
-    assert_equal 113629430, invoice_item[:id]
+    assert_equal "587600.0", invoice_item[:unit_price]
+  end
+
+  test "#items" do
+
+    get :items, format: :json, invoice_id: Invoice.first.id
+    items = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    item = items.first
+
+    assert_response :success
+    assert_equal "Lambo", item[:name]
+  end
+
+  test "#customer" do
+
+    get :customer, format: :json, invoice_id: Invoice.first.id
+    customer = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "Fred", customer[:first_name]
+  end
+
+  test "#merchant" do
+
+    get :merchant, format: :json, invoice_id: Invoice.first.id
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "Google", merchant[:name]
   end
 end

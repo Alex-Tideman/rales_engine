@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       end
 
       resources :invoices, only: [:show] do
-        get :invoices_items
+        get :invoice_items
         get :transactions
         get :items
         get :customer

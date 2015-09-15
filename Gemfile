@@ -18,5 +18,6 @@ group :development, :test do
   gem 'pry', :require => 'pry'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'simplecov'
 end
 

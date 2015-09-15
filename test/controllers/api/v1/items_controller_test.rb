@@ -57,4 +57,14 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert_equal 298486374, invoice_item[:id]
 
   end
+
+  test "#merchant" do
+
+    get :merchant, format: :json, item_id: Item.last.id
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "Yahoo", merchant[:name]
+
+  end
 end
