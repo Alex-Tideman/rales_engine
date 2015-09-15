@@ -15,7 +15,11 @@ class InvoiceItem < ActiveRecord::Base
     attribute_value = params.first.last
 
     if params
-      self.where("#{attribute} ILIKE ?", attribute_value).first
+      if attribute_value.is_a?(Numeric)
+        self.where(attribute => attribute_value).first
+      else
+        self.where("#{attribute} ILIKE ?", attribute_value).first
+      end
     else
       "Record not found."
     end
@@ -26,7 +30,11 @@ class InvoiceItem < ActiveRecord::Base
     attribute_value = params.first.last
 
     if params
-      self.where("#{attribute} ILIKE ?", attribute_value)
+      if attribute_value.is_a?(Numeric)
+        self.where(attribute => attribute_value)
+      else
+        self.where("#{attribute} ILIKE ?", attribute_value)
+      end
     else
       "Record not found."
     end

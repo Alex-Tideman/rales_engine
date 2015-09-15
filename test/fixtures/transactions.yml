@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credit_card_number: 523423425235
+  result: success
+  invoice_id: 1
+
+two:
+  credit_card_number: 234092342093
+  result: success
+  invoice_id: 2
+
+three:
+  credit_card_number: 234092342093
+  result: success
+  invoice_id: 3

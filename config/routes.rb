@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :customers, only: [:show] do
         get :invoices
@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         get :invoices
 
         collection do
+          get :revenue
           get :most_items
           get :most_revenue
           get :random
