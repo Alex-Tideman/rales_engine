@@ -4,16 +4,16 @@ one:
   name: Tennis Raquet
   description: Fun on the hardcourts
   unit_price: 5500.0
-  merchant_id: 1
+  merchant_id: 113629430
 
 two:
   name: Running Shoes
   description: Go fast!
   unit_price: 3250.0
-  merchant_id: 1
+  merchant_id: 113629430
 
 three:
   name: Lambo
   description: Vroom vrooom
   unit_price: 587600.0
-  merchant_id: 2
+  merchant_id: 980190962

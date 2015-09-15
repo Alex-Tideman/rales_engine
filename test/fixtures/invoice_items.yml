@@ -2,15 +2,18 @@
 
 one:
   quantity: 5
-  item_id: 1
-  invoice_id: 1
+  unit_price: 5600.0
+  item_id: 980190962
+  invoice_id: 980190962
 
 two:
   quantity: 1
-  item_id: 2
-  invoice_id: 2
+  unit_price: 587600.0
+  item_id: 113629430
+  invoice_id: 298486374
 
 three:
   quantity: 2
-  item_id: 3
-  invoice_id: 3
+  unit_price: 587600.0
+  item_id: 113629430
+  invoice_id: 113629430

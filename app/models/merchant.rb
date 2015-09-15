@@ -34,7 +34,7 @@ class Merchant < ActiveRecord::Base
 
   def self.most_revenue(params)
     quantity = params[:quantity].to_i - 1
-    self.all.sort_by { |merchant| merchant.merch_revenue }.reverse[0..quantity]
+    self.all.sort_by { |merchant| merchant.revenue }.reverse[0..quantity]
   end
 
   def self.most_items(params)
@@ -43,10 +43,10 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.revenue(date)
-    self.all.map { |merchant| merchant.merch_revenue(date) }.reduce(:+)
+    self.all.map { |merchant| merchant.revenue(date) }.reduce(:+)
   end
 
-  def merch_revenue(date = nil)
+  def revenue(date = nil)
     if date.nil?
       invoices.successful.includes(:invoice_items).sum('quantity * unit_price')
     else
