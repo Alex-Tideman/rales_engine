@@ -3,18 +3,22 @@ class Merchant < ActiveRecord::Base
   has_many :items
 
   def self.find(params)
-    if params[:name]
-      self.find_by_name(params[:name])
-    elsif params[:id]
-      self.find_by_id(params[:id])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value).first
     else
       "Record not found."
     end
   end
 
   def self.find_all(params)
-    if params[:name]
-      self.where(name: params[:name])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value)
     else
       "Record not found."
     end

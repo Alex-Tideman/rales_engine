@@ -34,10 +34,10 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def customer
-    respond_with Invoice.find_by(id: params[:id]).customer
+    respond_with Invoice.find_by(id: params[:invoice_id]).customer
   end
 
   def merchant
-    respond_with Invoice.find_by(id: params[:id]).merchant
+    respond_with Invoice.find_by(id: params[:invoice_id]).merchant
   end
 end

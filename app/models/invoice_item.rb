@@ -2,39 +2,31 @@ class InvoiceItem < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :item
 
-  def self.invoice_item
-    invoice_item.to_i
-  end
-
-  def self.unit_price
-    unit_price.to_i / 100
-  end
+  # def self.invoice_item
+  #   invoice_item.to_i
+  # end
+  #
+  # def self.unit_price
+  #   unit_price.to_i / 100
+  # end
 
   def self.find(params)
-    if params[:quantity]
-      self.find_by_quantity(params[:quantity])
-    elsif params[:unit_price]
-      self.find_by_unit_price(params[:unit_price])
-    elsif params[:item_id]
-      self.find_by_item_id(params[:item_id])
-    elsif params[:invoice_id]
-      self.find_by_invoice_id(params[:invoice_id])
-    elsif params[:id]
-      self.find_by_id(params[:id])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value).first
     else
       "Record not found."
     end
   end
 
   def self.find_all(params)
-    if params[:quantity]
-      self.where(quantity: params[:quantity])
-    elsif params[:unit_price]
-      self.where(unit_price: params[:unit_price])
-    elsif params[:item_id]
-      self.where(item_id: params[:item_id])
-    elsif params[:invoice_id]
-      self.where(invoice_id: params[:invoice_id])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value)
     else
       "Record not found."
     end

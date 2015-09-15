@@ -22,11 +22,11 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def invoices
-    respond_with Customer.find_by(id: params[:id]).invoices
+    respond_with Customer.find_by(id: params[:customer_id]).invoices
   end
 
   def transactions
-    respond_with Customer.find_by(id: params[:id]).transactions
+    respond_with Customer.find_by(id: params[:customer_id]).transactions
   end
 
 end

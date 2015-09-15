@@ -6,26 +6,22 @@ class Invoice < ActiveRecord::Base
   belongs_to :customer
 
   def self.find(params)
-    if params[:status]
-      self.find_by_status(params[:status])
-    elsif params[:merchant_id]
-      self.find_by_merchant_id(params[:merchant_id])
-    elsif params[:customer_id]
-      self.find_by_customer_id(params[:customer_id])
-    elsif params[:id]
-      self.find_by_id(params[:id])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value).first
     else
       "Record not found."
     end
   end
 
   def self.find_all(params)
-    if params[:status]
-      self.where(status: params[:status])
-    elsif params[:merchant_id]
-      self.where(merchant_id: params[:merchant_id])
-    elsif params[:customer_id]
-      self.where(customer_id: params[:customer_id])
+    attribute = params.first.first
+    attribute_value = params.first.last
+
+    if params
+      self.where("#{attribute} ILIKE ?", attribute_value)
     else
       "Record not found."
     end
