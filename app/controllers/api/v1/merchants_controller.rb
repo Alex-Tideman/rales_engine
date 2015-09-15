@@ -30,7 +30,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def most_revenue
-    respond_with Merchant.most_revenue.limit(params[:quantity])
+    respond_with Merchant.most_revenue(params)
   end
 
 

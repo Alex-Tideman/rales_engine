@@ -20,8 +20,9 @@ class Merchant < ActiveRecord::Base
     end
   end
 
-  def self.most_revenue
-    self.all.sort_by { |merchant| merchant.revenue }.reverse
+  def self.most_revenue(params)
+    quantity = params[:quantity].to_i - 1
+    self.all.sort_by { |merchant| merchant.revenue }.reverse[0..quantity]
   end
 
   def revenue
