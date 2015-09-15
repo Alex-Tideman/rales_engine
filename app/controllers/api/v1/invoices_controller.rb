@@ -10,29 +10,11 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def find
-    if params[:status]
-      respond_with Invoice.find_by_status(params[:status])
-      elsif params[:merchant_id]
-        respond_with Invoice.find_by_merchant_id(params[:merchant_id])
-    elsif params[:customer_id]
-      respond_with Invoice.find_by_customer_id(params[:customer_id])
-    elsif params[:id]
-      respond_with Invoice.find_by_id(params[:id])
-    else
-      respond_with "Record not found."
-    end
+    respond_with Invoice.find(params)
   end
 
   def find_all
-    if params[:status]
-      respond_with Invoice.where(status: params[:status])
-    elsif params[:merchant_id]
-      respond_with Invoice.where(merchant_id: params[:merchant_id])
-    elsif params[:customer_id]
-      respond_with Invoice.where(customer_id: params[:customer_id])
-    else
-      respond_with "Record not found."
-    end
+    respond_with Invoice.find_all(params)
   end
 
   def random

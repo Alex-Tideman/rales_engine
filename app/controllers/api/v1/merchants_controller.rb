@@ -10,21 +10,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    if params[:name]
-      respond_with Merchant.find_by_name(params[:name])
-    elsif params[:id]
-      respond_with Merchant.find_by_id(params[:id])
-    else
-      "Record not found."
-    end
+    respond_with Merchant.find(params)
   end
 
   def find_all
-    if params[:name]
-      respond_with Merchant.where(name: params[:name])
-    else
-      "Record not found."
-    end
+    respond_with Merchant.find_all(params)
   end
 
   def random
