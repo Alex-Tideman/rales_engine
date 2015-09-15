@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
     params[:invoice_id] = params[:invoice_id].to_i
     params[:customer_id] = params[:customer_id].to_i
     params[:merchant_id] = params[:merchant_id].to_i
-    params[:date] = Date.parse(params[:date]) if params[:date]
+    # params[:date] = Date.parse(params[:date]) if params[:date]
   end
 end

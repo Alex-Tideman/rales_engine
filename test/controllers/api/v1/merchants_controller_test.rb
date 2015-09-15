@@ -91,7 +91,42 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
   end
 
+  test "#most_revenue" do
+    skip
 
+    params = { quantity: "1" }
+
+    get :find_all, format: :json
+    get :most_revenue, format: :json
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal 1, merchant.count
+    assert_equal "Yahoo", merchant[:name]
+  end
+
+  test "#most_items" do
+    skip
+    params = { quantity: "1" }
+
+    get :most_revenue, format: :json
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal 1, merchant.count
+    assert_equal "Yahoo", merchant[:name]
+  end
+
+  test "#revenue" do
+    skip
+
+    get :most_revenue, format: :json
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal 1, merchant.count
+    assert_equal "Yahoo", merchant[:name]
+  end
 
 
 end
