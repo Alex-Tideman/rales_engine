@@ -25,10 +25,17 @@ class Merchant < ActiveRecord::Base
     self.all.sort_by { |merchant| merchant.revenue }.reverse[0..quantity]
   end
 
+  def self.most_items(params)
+    quantity = params[:quantity].to_i - 1
+    self.all.sort_by { |merchant| merchant.item_count }.reverse[0..quantity]
+  end
+
   def revenue
     invoices.successful.includes(:invoice_items).sum('quantity * unit_price')
   end
 
-
+  def item_count
+    invoices.successful.includes(:invoice_items).sum('quantity')
+  end
 
 end

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get '/items/:id/invoice_items', to: 'items#invoice_items'
       get '/items/:id/merchant', to: 'items#merchant'
 
+      get '/merchants/most_items', to: 'merchants#most_items'
       get '/merchants/most_revenue', to: 'merchants#most_revenue'
       get '/merchants/random', to: 'merchants#random'
       get '/merchants/find_all', to: 'merchants#find_all'
