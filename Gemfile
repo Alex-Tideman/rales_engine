@@ -15,9 +15,8 @@ gem "responders"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'capybara'
   gem 'pry', :require => 'pry'
-  gem "rspec-rails"
-  gem 'web-console', '~> 2.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
