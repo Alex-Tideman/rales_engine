@@ -26,4 +26,8 @@ class Transaction < ActiveRecord::Base
       "Record not found."
     end
   end
+
+  def self.success
+    where(result: 'success')
+  end
 end

@@ -2,6 +2,14 @@ class InvoiceItem < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :item
 
+  def self.invoice_item
+    invoice_item.to_i
+  end
+
+  def self.unit_price
+    unit_price.to_i / 100
+  end
+
   def self.find(params)
     if params[:quantity]
       self.find_by_quantity(params[:quantity])
@@ -31,4 +39,5 @@ class InvoiceItem < ActiveRecord::Base
       "Record not found."
     end
   end
+
 end

@@ -23,4 +23,8 @@ class Customer < ActiveRecord::Base
       "Record not found."
     end
   end
+
+  def self.transactions
+    self.joins(:invoices)
+  end
 end

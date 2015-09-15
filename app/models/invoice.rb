@@ -30,4 +30,9 @@ class Invoice < ActiveRecord::Base
       "Record not found."
     end
   end
+
+  def self.successful
+    self.joins(:transactions).where(transactions: { result: "success" })
+  end
+
 end

@@ -20,4 +20,14 @@ class Merchant < ActiveRecord::Base
     end
   end
 
+  def self.most_revenue
+    self.all.sort_by { |merchant| merchant.revenue }.reverse
+  end
+
+  def revenue
+    invoices.successful.includes(:invoice_items).sum('quantity * unit_price')
+  end
+
+
+
 end
