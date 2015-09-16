@@ -13,12 +13,16 @@ class Item < ActiveRecord::Base
     self.all.sort_by { |item| item.item_count }.reverse[0..quantity]
   end
 
+  def best_day
+    invoice_items.includes(:invoice).group(:created_at).order('count_id DESC').limit(1).count(:id)
+  end
+
   def revenue
-      invoice_items.invoices.successful.joins(:invoice_items).sum('quantity * unit_price')
+    invoice_items.sum('quantity * unit_price')
   end
 
   def item_count
-    invoices.successful.joins(:invoice_items).sum('quantity')
+    invoice_items.sum('quantity')
   end
 
 end

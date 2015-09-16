@@ -60,7 +60,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     invoice = invoices.first
 
     assert_response :success
-    assert_equal 1, invoices.count
+    assert_equal 2, invoices.count
     assert_equal "shipped", invoice[:status]
 
   end
@@ -105,7 +105,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal "11752.0", revenue[:total_revenue]
   end
 
-  test "#total revenue for single merchant" do
+  test "#revenue for single merchant" do
 
     get :revenue, format: :json, merchant_id: Merchant.last.id
     revenue = JSON.parse(response.body, symbolize_names: true)
@@ -114,7 +114,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal "11752.0", revenue[:revenue]
   end
 
-  test "#total revenue for single merchant with date" do
+  test "#revenue for single merchant with date" do
 
     get :revenue, format: :json, merchant_id: Merchant.first.id, date: "2012-03-13T06:54:11.000Z"
     revenue = JSON.parse(response.body, symbolize_names: true)
@@ -123,7 +123,24 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal "281.25", revenue[:revenue]
   end
 
+  test "#favorite_customer" do
 
+    get :favorite_customer, format: :json, merchant_id: Merchant.last.id
+    customer = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "Fred", customer[:first_name]
+  end
+
+  test "#customers_with_pending_invoices" do
+
+  get :customers_with_pending_invoices, format: :json, merchant_id: Merchant.last.id
+  customers = JSON.parse(response.body, symbolize_names: true)
+  customer = customers.first
+
+  assert_response :success
+  assert_equal "Sue", customer[:first_name]
+  end
 
 
 end

@@ -43,9 +43,9 @@ Rails.application.routes.draw do
       resources :items, only: [:index,:show] do
         get :invoice_items
         get :merchant
+        get :best_day
 
         collection do
-          get :best_day
           get :most_items
           get :most_revenue
           get :random

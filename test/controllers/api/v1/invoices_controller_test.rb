@@ -31,7 +31,7 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     invoice = invoices.first
 
     assert_response :success
-    assert_equal 3, invoices.count
+    assert_equal 4, invoices.count
     assert_equal "shipped", invoice[:status]
     assert_equal 113629430, invoice[:merchant_id]
     assert_equal 298486374, invoice[:customer_id]

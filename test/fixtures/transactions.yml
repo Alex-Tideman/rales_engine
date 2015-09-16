@@ -14,3 +14,8 @@ three:
   credit_card_number: 234092342093
   result: success
   invoice_id: 113629430
+
+four:
+  credit_card_number: 234092342093
+  result: failed
+  invoice_id: 281110143
