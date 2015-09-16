@@ -20,11 +20,11 @@ class Item < ActiveRecord::Base
   end
 
   def revenue
-    invoice_items.sum('quantity * unit_price')
+    invoices.successful.sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
   def item_count
-    invoice_items.sum('quantity')
+    invoices.successful.sum('invoice_items.quantity')
   end
 
 end
