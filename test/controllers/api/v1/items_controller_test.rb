@@ -15,7 +15,7 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
 
   test "#find" do
 
-    get :find, format: :json, name: "running Shoes"
+    get :find, format: :json, name: "Running Shoes"
 
     item = JSON.parse(response.body, symbolize_names: true)
 

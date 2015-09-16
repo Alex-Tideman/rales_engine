@@ -37,19 +37,6 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
     assert_equal 980190962, transaction[:invoice_id]
   end
 
-  test "#find_all with lowercase" do
-
-    get :find_all, format: :json, result: "suCCess"
-    transactions = JSON.parse(response.body, symbolize_names: true)[:transactions]
-    transaction = transactions.first
-
-    assert_response :success
-    assert_equal 3, transactions.count
-    assert_equal "523423425235", transaction[:credit_card_number]
-    assert_equal "success", transaction[:result]
-    assert_equal 980190962, transaction[:invoice_id]
-  end
-
   test "#random" do
     get :random, format: :json
     transaction = JSON.parse(response.body, symbolize_names: true)[:transactions]

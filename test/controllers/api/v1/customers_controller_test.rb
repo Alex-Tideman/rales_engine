@@ -13,7 +13,7 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
 
   test "#find" do
 
-    get :find, format: :json, last_name: "bluebird"
+    get :find, format: :json, last_name: "Bluebird"
 
     customer = JSON.parse(response.body, symbolize_names: true)
 
@@ -24,7 +24,7 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
 
   test "#find_all" do
 
-    get :find_all, format: :json, first_name: "fred"
+    get :find_all, format: :json, first_name: "Fred"
     customers = JSON.parse(response.body, symbolize_names: true)[:customers]
     customer = customers.first
 

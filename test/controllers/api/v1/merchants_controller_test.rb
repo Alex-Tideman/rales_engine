@@ -12,20 +12,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
   test "#find" do
 
-    name_params = { name: "Yahoo" }
-
-    get :find, format: :json, name: name_params.values
-    merchant = JSON.parse(response.body, symbolize_names: true)
-
-    assert_response :success
-    assert_equal 'Yahoo', merchant[:name]
-  end
-
-  test "#find with lowercase" do
-
-    name_params = { name: "yaHoo" }
-
-    get :find, format: :json, name: name_params.values
+    get :find, format: :json, name: "Yahoo"
     merchant = JSON.parse(response.body, symbolize_names: true)
 
     assert_response :success
@@ -34,9 +21,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
   test "#find_all" do
 
-    name_params = { name: "Yahoo" }
-
-    get :find_all, format: :json, name: name_params.values
+    get :find_all, format: :json, name: "Yahoo"
     merchants = JSON.parse(response.body, symbolize_names: true)[:merchants]
     merchant = merchants.first
 
@@ -45,18 +30,6 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal 2, merchants.count
   end
 
-  test "#find_all with lowercase" do
-
-    name_params = { name: "yahoo" }
-
-    get :find_all, format: :json, name: name_params.values
-    merchants = JSON.parse(response.body, symbolize_names: true)[:merchants]
-    merchant = merchants.first
-
-    assert_response :success
-    assert_equal 'Yahoo', merchant[:name]
-    assert_equal 2, merchants.count
-  end
 
   test "#random" do
 

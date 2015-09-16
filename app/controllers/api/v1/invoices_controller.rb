@@ -1,16 +1,20 @@
 class Api::V1::InvoicesController < ApplicationController
   respond_to :json
 
+  def index
+    respond_with Invoice.all
+  end
+
   def show
     respond_with Invoice.find_by(id: params[:id])
   end
 
   def find
-    respond_with Invoice.find(params)
+    respond_with Invoice.find_by(invoice_params)
   end
 
   def find_all
-    respond_with Invoice.find_all(params)
+    respond_with Invoice.where(invoice_params)
   end
 
   def random
@@ -35,5 +39,11 @@ class Api::V1::InvoicesController < ApplicationController
 
   def merchant
     respond_with Invoice.find_by(id: params[:invoice_id]).merchant
+  end
+
+  private
+
+  def invoice_params
+    params.permit(:id,:status,:customer_id,:merchant_id,:created_at,:updated_at)
   end
 end

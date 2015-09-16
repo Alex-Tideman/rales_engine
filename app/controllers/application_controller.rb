@@ -8,13 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def sanitize_page_params
-    params[:id] = params[:id].to_i
-    params[:quantity] = params[:quantity].to_i
-    params[:unit_price] = params[:unit_price].to_i
-    params[:item_id] = params[:item_id].to_i
-    params[:invoice_id] = params[:invoice_id].to_i
-    params[:customer_id] = params[:customer_id].to_i
-    params[:merchant_id] = params[:merchant_id].to_i
-    # params[:date] = Date.parse(params[:date]) if params[:date]
+    params[:quantity] = params[:quantity].to_i if params[:quantity]
+    params[:unit_price] = params[:unit_price].to_i if params[:unit_price]
   end
 end
