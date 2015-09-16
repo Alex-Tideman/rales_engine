@@ -35,13 +35,14 @@ class Merchant < ActiveRecord::Base
   end
 
   def favorite_customer
-    Customer.find_by(id: invoices.successful_transactions.group(:customer_id).order('count_id DESC').limit(1).count(:id).keys)
+    Customer.find_by(id: invoices.successful.group(:customer_id).count
+                             .sort_by {|pair| [pair.last, pair.first]}.reverse.first.first)
   end
 
   def customers_with_pending_invoices
-    invoices.pending.map do |invoice|
-      invoice.customer
-    end
+    Invoice.pending.map do |invoice|
+      invoice.customer if invoice.merchant_id == self.id
+    end.compact
   end
 
 

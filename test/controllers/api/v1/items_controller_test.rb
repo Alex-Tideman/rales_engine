@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class Api::V1::ItemsControllerTest < ActionController::TestCase
+
+  test "#index" do
+    get :index, format: :json
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal 3, items.count
+  end
+
   test "#show" do
     get :show, format: :json, id: Item.last.id
 
@@ -66,5 +76,36 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "Yahoo", merchant[:name]
 
+  end
+
+  test "#most_revenue" do
+
+    get :most_revenue, format: :json, quantity: "2"
+    items = JSON.parse(response.body, symbolize_names: true)
+    item = items.first
+
+    assert_response :success
+    assert_equal 2, items.count
+    assert_equal "Lambo", item[:name]
+  end
+
+  test "#most_items" do
+
+    get :most_items, format: :json, quantity: "1"
+    items = JSON.parse(response.body, symbolize_names: true)
+    item = items.first
+
+    assert_response :success
+    assert_equal "Tennis Raquet", item[:name]
+    assert_equal "Fun on the hardcourts", item[:description]
+  end
+
+  test "#best_day" do
+
+    get :best_day, format: :json, item_id: Item.last.id
+    item = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "2012-03-13T06:54:11.000Z", item[:best_day]
   end
 end

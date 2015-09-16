@@ -10,15 +10,11 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.pending
-    self.all - successful
+    self.includes(:transactions).where(transactions: { result: "failed" })
   end
 
   def self.successful_transactions
     self.joins(:transactions).where(transactions: { result: "success" })
-  end
-
-  def top_merchant
-    self.all.group(:id).count
   end
 
 end

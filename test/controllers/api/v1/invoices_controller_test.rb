@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class Api::V1::InvoicesControllerTest < ActionController::TestCase
+
+  test "#index" do
+    get :index, format: :json
+
+    invoices = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal 4, invoices.count
+  end
+
   test "#show" do
     get :show, format: :json, id: Invoice.last.id
 
