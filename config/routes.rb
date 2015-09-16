@@ -45,6 +45,9 @@ Rails.application.routes.draw do
         get :merchant
 
         collection do
+          get :best_day
+          get :most_items
+          get :most_revenue
           get :random
           get :find_all
           get :find

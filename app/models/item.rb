@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
   end
 
   def revenue
-      invoices.successful.joins(:invoice_items).sum('quantity * unit_price')
+      invoice_items.invoices.successful.joins(:invoice_items).sum('quantity * unit_price')
   end
 
   def item_count
