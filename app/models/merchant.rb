@@ -47,7 +47,7 @@ class Merchant < ActiveRecord::Base
     {:total_revenue => (sum / 100) }.to_json
   end
 
-  def self.revenue(date)
+  def single_revenue(date)
     sum = self.revenue(date)
     {:total_revenue => (sum / 100) }.to_json
   end
@@ -63,5 +63,16 @@ class Merchant < ActiveRecord::Base
   def item_count
     invoices.successful.joins(:invoice_items).sum('quantity')
   end
+
+  def favorite_customer
+    Customer.find_by(id: invoices.successful_transactions.group(:customer_id).order('count_id DESC').limit(1).count(:id).keys)
+  end
+
+  def customers_with_pending_invoices
+    invoices.pending.map do |invoice|
+      invoice.customer
+    end
+  end
+
 
 end

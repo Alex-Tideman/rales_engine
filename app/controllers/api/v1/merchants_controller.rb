@@ -35,11 +35,18 @@ class Api::V1::MerchantsController < ApplicationController
 
   def revenue
     if params[:merchant_id] > 0
-      respond_with Merchant.find_by(id: params[:merchant_id]).revenue(params[:date])
+      respond_with Merchant.find_by(id: params[:merchant_id]).single_revenue(params[:date])
     else
       respond_with Merchant.total_revenue(params[:date])
     end
   end
 
+  def favorite_customer
+    respond_with Merchant.find_by(id: params[:merchant_id]).favorite_customer
+  end
+
+  def customers_with_pending_invoices
+    respond_with Merchant.find_by(id: params[:merchant_id]).customers_with_pending_invoices
+  end
 
 end

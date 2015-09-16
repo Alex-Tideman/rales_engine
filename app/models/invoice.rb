@@ -39,6 +39,10 @@ class Invoice < ActiveRecord::Base
     self.includes(:transactions).where(transactions: { result: "success" })
   end
 
+  def self.pending
+    self.all - successful
+  end
+
   def self.successful_transactions
     self.joins(:transactions).where(transactions: { result: "success" })
   end
