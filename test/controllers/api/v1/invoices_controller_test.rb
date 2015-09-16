@@ -27,7 +27,7 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
   test "#find_all" do
 
     get :find_all, format: :json, status: "shipped"
-    invoices = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    invoices = JSON.parse(response.body, symbolize_names: true)
     invoice = invoices.first
 
     assert_response :success
@@ -39,7 +39,7 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
 
   test "#random" do
     get :random, format: :json
-    invoice = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    invoice = JSON.parse(response.body, symbolize_names: true)
 
     assert_response :success
     assert_equal 1, invoice.count
@@ -48,7 +48,7 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
   test "#transactions" do
 
     get :transactions, format: :json, invoice_id: Invoice.first.id
-    transactions = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    transactions = JSON.parse(response.body, symbolize_names: true)
     transaction = transactions.first
 
     assert_response :success
@@ -58,17 +58,17 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
   test "#invoice_items" do
 
     get :invoice_items, format: :json, invoice_id: Invoice.first.id
-    invoice_items = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    invoice_items = JSON.parse(response.body, symbolize_names: true)
     invoice_item = invoice_items.first
 
     assert_response :success
-    assert_equal "587600.0", invoice_item[:unit_price]
+    assert_equal "5876.0", invoice_item[:unit_price]
   end
 
   test "#items" do
 
     get :items, format: :json, invoice_id: Invoice.first.id
-    items = JSON.parse(response.body, symbolize_names: true)[:invoices]
+    items = JSON.parse(response.body, symbolize_names: true)
     item = items.first
 
     assert_response :success

@@ -22,7 +22,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   test "#find_all" do
 
     get :find_all, format: :json, name: "Yahoo"
-    merchants = JSON.parse(response.body, symbolize_names: true)[:merchants]
+    merchants = JSON.parse(response.body, symbolize_names: true)
     merchant = merchants.first
 
     assert_response :success
@@ -43,7 +43,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   test "#items" do
 
     get :items, format: :json, merchant_id: Merchant.last.id
-    items = JSON.parse(response.body, symbolize_names: true)[:merchants]
+    items = JSON.parse(response.body, symbolize_names: true)
     item = items.first
 
     assert_response :success
@@ -56,7 +56,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   test "#invoices" do
 
     get :invoices, format: :json, merchant_id: Merchant.last.id
-    invoices = JSON.parse(response.body, symbolize_names: true)[:merchants]
+    invoices = JSON.parse(response.body, symbolize_names: true)
     invoice = invoices.first
 
     assert_response :success
@@ -68,7 +68,7 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   test "#most_revenue" do
 
     get :most_revenue, format: :json, quantity: "2"
-    merchants = JSON.parse(response.body, symbolize_names: true)[:merchants]
+    merchants = JSON.parse(response.body, symbolize_names: true)
     merchant = merchants.first
 
     assert_response :success
@@ -79,18 +79,6 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   test "#most_items" do
 
     get :most_items, format: :json, quantity: "1"
-    merchants = JSON.parse(response.body, symbolize_names: true)[:merchants]
-    merchant = merchants.first
-
-    assert_response :success
-    assert_equal 1, merchants.count
-    assert_equal "Yahoo", merchant[:name]
-  end
-
-  test "#revenue" do
-    skip
-
-    get :most_revenue, format: :json, date: 'a date'
     merchants = JSON.parse(response.body, symbolize_names: true)
     merchant = merchants.first
 
@@ -98,6 +86,44 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal 1, merchants.count
     assert_equal "Yahoo", merchant[:name]
   end
+
+  test "#total revenue" do
+
+    get :revenue, format: :json
+    revenue = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "17909.6", revenue[:total_revenue]
+  end
+
+  test "#total revenue with date" do
+
+    get :revenue, format: :json, date: '2015-03-13T06:54:11.000Z'
+    revenue = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "11752.0", revenue[:total_revenue]
+  end
+
+  test "#total revenue for single merchant" do
+
+    get :revenue, format: :json, merchant_id: Merchant.last.id
+    revenue = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "11752.0", revenue[:revenue]
+  end
+
+  test "#total revenue for single merchant with date" do
+
+    get :revenue, format: :json, merchant_id: Merchant.first.id, date: "2012-03-13T06:54:11.000Z"
+    revenue = JSON.parse(response.body, symbolize_names: true)
+
+    assert_response :success
+    assert_equal "281.25", revenue[:revenue]
+  end
+
+
 
 
 end

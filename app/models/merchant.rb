@@ -14,12 +14,12 @@ class Merchant < ActiveRecord::Base
 
   def self.total_revenue(date)
     sum = self.all.map { |merchant| merchant.revenue(date) }.reduce(:+)
-    {:total_revenue => (sum / 100) }.to_json
+    {:total_revenue => sum.round(2) }
   end
 
   def single_revenue(date)
     sum = self.revenue(date)
-    {:total_revenue => (sum / 100) }.to_json
+    {:revenue => sum.round(2) }
   end
 
   def revenue(date = nil)

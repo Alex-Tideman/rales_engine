@@ -27,7 +27,7 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
   test "#find_all" do
 
     get :find_all, format: :json, result: "success"
-    transactions = JSON.parse(response.body, symbolize_names: true)[:transactions]
+    transactions = JSON.parse(response.body, symbolize_names: true)
     transaction = transactions.first
 
     assert_response :success
@@ -39,7 +39,7 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
 
   test "#random" do
     get :random, format: :json
-    transaction = JSON.parse(response.body, symbolize_names: true)[:transactions]
+    transaction = JSON.parse(response.body, symbolize_names: true)
 
     assert_response :success
     assert_equal 1, transaction.count

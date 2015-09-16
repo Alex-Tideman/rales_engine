@@ -29,7 +29,7 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
   test "#find_all" do
 
     get :find_all, format: :json, description: "Vroom vrooom"
-    items = JSON.parse(response.body, symbolize_names: true)[:items]
+    items = JSON.parse(response.body, symbolize_names: true)
     item = items.first
 
     assert_response :success
@@ -41,7 +41,7 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
 
   test "#random" do
     get :random, format: :json
-    item = JSON.parse(response.body, symbolize_names: true)[:items]
+    item = JSON.parse(response.body, symbolize_names: true)
 
     assert_response :success
     assert_equal 1, item.count
@@ -50,7 +50,7 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
   test "#invoice_items" do
 
     get :invoice_items, format: :json, item_id: Item.first.id
-    invoice_items = JSON.parse(response.body, symbolize_names: true)[:items]
+    invoice_items = JSON.parse(response.body, symbolize_names: true)
     invoice_item = invoice_items.first
 
     assert_response :success
