@@ -42,20 +42,26 @@ class Merchant < ActiveRecord::Base
     self.all.sort_by { |merchant| merchant.item_count }.reverse[0..quantity]
   end
 
+  def self.total_revenue(date)
+    sum = self.all.map { |merchant| merchant.revenue(date) }.reduce(:+)
+    {:total_revenue => (sum / 100) }.to_json
+  end
+
   def self.revenue(date)
-    self.all.map { |merchant| merchant.revenue(date) }.reduce(:+)
+    sum = self.revenue(date)
+    {:total_revenue => (sum / 100) }.to_json
   end
 
   def revenue(date = nil)
     if date.nil?
-      invoices.successful.includes(:invoice_items).sum('quantity * unit_price')
+      invoices.successful.joins(:invoice_items).sum('quantity * unit_price')
     else
-      invoices.successful.where(invoices: { created_at: date }).includes(:invoice_items).sum('quantity * unit_price')
+      invoices.successful.where(invoices: { created_at: date }).joins(:invoice_items).sum('quantity * unit_price')
     end
   end
 
   def item_count
-    invoices.successful.includes(:invoice_items).sum('quantity')
+    invoices.successful.joins(:invoice_items).sum('quantity')
   end
 
 end

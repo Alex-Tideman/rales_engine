@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :customers, only: [:show] do
+        get :favorite_merchant
         get :invoices
         get :transactions
 
@@ -53,6 +54,9 @@ Rails.application.routes.draw do
       resources :merchants, only: [:show] do
         get :items
         get :invoices
+        get :revenue
+        get :favorite_customer
+        get :customers_with_pending_invoices
 
         collection do
           get :revenue
