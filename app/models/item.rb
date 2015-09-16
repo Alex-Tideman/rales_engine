@@ -15,7 +15,7 @@ class Item < ActiveRecord::Base
 
   def best_day
     date = invoices.successful.group('invoices.created_at').sum('quantity * unit_price')
-        .sort_by { |x| x.last }.reverse.first.first
+        .sort_by { |pair| pair.last }.reverse.first.first
     {:best_day => date }
   end
 

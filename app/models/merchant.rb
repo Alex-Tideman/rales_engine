@@ -26,7 +26,8 @@ class Merchant < ActiveRecord::Base
     if date.nil?
       invoices.successful.joins(:invoice_items).sum('quantity * unit_price')
     else
-      invoices.successful.where(invoices: { created_at: date }).joins(:invoice_items).sum('quantity * unit_price')
+      invoices.successful.where(invoices: { created_at: date })
+          .joins(:invoice_items).sum('quantity * unit_price')
     end
   end
 
@@ -44,6 +45,5 @@ class Merchant < ActiveRecord::Base
       invoice.customer if invoice.merchant_id == self.id
     end.compact
   end
-
 
 end
